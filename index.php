@@ -1,18 +1,27 @@
 <?php 
-
 session_start();
-
 
 ?>
 
+
+
+
+
+
+
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registration | Website Development Training</title>
 
+    <link rel="shortcut icon" href="./assets/images/favi1.png" type="image/x-icon">
+
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/animate/animate.min.css"> 
+
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="./assets/css/app.css">
 
@@ -22,197 +31,154 @@ session_start();
     <script defer type="text/javascript" src="./assets/js/app.js"></script>
 
 
-  </head>
-  <body>
+</head>
 
-    <div class="container-fluid">
-    	<div class="container-fluid">
+<body>
 
-    		<div class="row g-0">
+    <div class="container-fluid p-0">
 
-    			<div class="col-md-4 left-content">
+        <div class="row g-0">
+            <div class="col-md-4 left-content">
+                <img src="./assets/images/p1.jpg" class="img-fluid left-image">
+            </div>
 
-    				<img src="./assets/images/p1.jpg" class="img-fluid ">
-    				
-    			</div>
+            <div class="col-md-4 my-3 fixed offset-md-2 right-content animate__animated animate__slideInDown  ">
 
-    			<div class="col-md-4 my-3  offset-md-2">
+                <h2>Kindly fill in your Details</h2>
+                <p class="mb-4"> Get better at HTML, CSS and Javascript <br> in just six(6) weeks</p>
 
-	    				<h2>Kindly fill in your Details</h2>
-	    				<p
-	    				 class="mb-4"> Get better at HTML, CSS and Javascript <br> in just six(6) weeks</p>
+                <!-- Error display -->
 
-						<!-- Error display -->
+                <small>
+                    <?php
+                    if(isset($_SESSION['already-registered-error']) && !empty($_SESSION['already-registered-error'])){ ?>
+                    <div class="alert alert-danger"><?=$_SESSION["already-registered-error"]?></div>
+                    <?php unset($_SESSION['already-registered-error']);
+                    }else{ 
+                        $_SESSION['already-registered-error']="";
+                    }
+                    ?>
+                </small>
 
-						 <small>
-	    				 	<?php
-		    				 	if(isset($_SESSION['already-registered-error']) && !empty($_SESSION['already-registered-error'])){
+                <!-- Registration success display -->
+
+                <small>
+                    <?php 
+                    if(isset($_SESSION['register-success']) && !empty($_SESSION['register-success'])){
 		    				 		?>
-		    				 		<div class="alert alert-danger"><?=$_SESSION["already-registered-error"]?></div>
-		    				 		<?php 
+                    <div class="alert alert-success"><?=$_SESSION["register-success"]?></div>
+                  
+                    <?php
+                    unset($_SESSION['register-success']);
+                }else{
+                    $_SESSION['register-success']="";
+                }
+                ?>
+                </small>
 
-		    				 		unset($_SESSION['already-registered-error']);
-		    				 	}else{
-		    				 		$_SESSION['already-registered-error']="";
-		    				 	}
-	    				 	?>
-	    				 </small>
+                <form method="POST" action="./process.php" class="needs-validation "  novalidate>
+                    <div class="mb-3">
+                        <label class="mb-2 text-muted" for="full-name">Full Name</label>
+                        <input id="full-name" type="text" class="form-control  rounded-pill  p-2" name="full-name"
+                            value="" required autofocus style="box-shadow:none;">
+                        <div class="invalid-feedback">
+                            Full name is required
+                        </div>
+                    </div>
 
-	    				 <!-- Registration success display -->
+                    <div class="mb-3">
 
-						 <small>
-	    				 	<?php 
-		    				 	if(isset($_SESSION['register-success']) && !empty($_SESSION['register-success'])){
-		    				 		?>
-		    				 		<div class="alert alert-success"><?=$_SESSION["register-success"]?></div>
-		    				 		<script>alert('Kindly make payment to either numbers: \n\n0540136934 (Ernest Trekpah)\n0558540812 (Elijah Kwachie Junior)\n\nUse DevTrain as reference.\n\nThanks')</script>
-		    				 		<?php
-
-		    				 		unset($_SESSION['register-success']);
-		    				 	}else{
-		    				 		$_SESSION['register-success']="";
-		    				 	}
-	    				 	?>
-	    				 </small>
-
-
-    				<form method="post" action="./process.php">
-
-			    	<div class="mb-3 ">
-						  <label for="fullName" class="form-label">Full Name</label>
-						  <input name="full-name" type="text" class="form-control rounded-0" id="fullName" placeholder="Enter your full name" >
-
-						  <!-- Error Message -->
-						  <small class="text-danger">
-	    				 	<?php 
-		    				 	if(isset($_SESSION['full-name-empty']) && !empty($_SESSION['full-name-empty'])){
-		    				 		print $_SESSION['full-name-empty'];
-
-		    				 		unset($_SESSION['full-name-empty']);
-		    				 	}else{
-		    				 		$_SESSION['full-name-empty']="";
-		    				 	}
-	    				 	?>
-	    				 </small>
-
-						</div>
-
-						<div class="mb-3 ">
-						  <label for="phone" class="form-label">Phone</label>
-						  <input name="phone" type="number" class="form-control rounded-0" id="phone" placeholder="Enter your phone number"  min="10"  >
-
-						  <!-- Error Message -->
-						  <small class="text-danger">
-	    				 	<?php 
-		    				 	if(isset($_SESSION['phone-empty']) && !empty($_SESSION['phone-empty'])){
-		    				 		print $_SESSION['phone-empty'];
-
-		    				 		unset($_SESSION['phone-empty']);
-		    				 	}else{
-		    				 		$_SESSION['phone-empty']="";
-		    				 	}
-	    				 	?>
-	    				 </small>
-
-						</div> 
-
-						<div class="mb-3 ">
-						  <label for="email" class="form-label">Email</label>
-						  <input name="email" type="email" class="form-control rounded-0" id="email" placeholder="Enter your official email" >
+                        <div class="mb-2 w-100">
+                            <label class="form-label" for="phone">Phone</label>
+                        </div>
+                        <input id="phone" type="number" class="form-control rounded-pill  p-2" name="phone" 
+                            required style="box-shadow:none;">
+                        <div class="invalid-feedback">
+                            Phone is required
+                        </div>
+                    </div>
 
 
-						  <!-- Error Message -->
-						  <small class="text-danger">
-	    				 	<?php 
-		    				 	if(isset($_SESSION['email-empty']) && !empty($_SESSION['email-empty'])){
-		    				 		print $_SESSION['email-empty'];
+                    <div class="mb-3">
+                        <div class="mb-2 w-100">
+                            <label class="text-muted" for="email">Email</label>
+                        </div>
+                        <input id="email" type="email" class="form-control rounded-pill  p-2" name="email" 
+                            required style="box-shadow:none;">
+                        <div class="invalid-feedback">
+                           Email is required
+                        </div>
+                    </div>
 
-		    				 		unset($_SESSION['email-empty']);
-		    				 	}else{
-		    				 		$_SESSION['email-empty']="";
-		    				 	}
-	    				 	?>
-	    				 </small>
-
-
-						</div>
-
-						<div class="mb-3 ">
-						  <label for="department" class="form-label">Department</label>
-						  <input name="department" type="text" class="form-control rounded-0" id="deparment" placeholder="Enter your department" >
-
-						  <!-- Error Message -->
-						  <small class="text-danger">
-	    				 	<?php 
-		    				 	if(isset($_SESSION['department-empty']) && !empty($_SESSION['department-empty'])){
-		    				 		print $_SESSION['department-empty'];
-
-		    				 		unset($_SESSION['department-empty']);
-		    				 	}else{
-		    				 		$_SESSION['department-empty']="";
-		    				 	}
-	    				 	?>
-	    				 </small>
-
-
-						</div>
-
-							<div class="row">
-							
-								<div class="col-md-12">
-								<div class="mb-3 ">
-								  <button name="btn_register" type="submit" class="btn btn-dark rounded-0 w-100 ">&rarr;   Submit</button>
-								</div>
-
-									
-								</div>
-
-							</div>
+                    <div class="mb-3">
+                        <div class="mb-2 w-100">
+                            <label class="text-muted" for="department">Department</label>
+                        </div>
+                        <input id="department" type="text" class="form-control rounded-pill  p-2" name="department"
+                            value required style="box-shadow:none;">
+                        <div class="invalid-feedback">
+                            Department is required
+                        </div>
+                    </div>
 
 
 
-    				</form>
+                    <div class="mb-3 ">
 
-    			</div>
+                        <label for="level" class="form-label">Level</label>
+                        <select name="level" class="form-select   rounded-pill p-2" aria-label="level" id="level">
+                        <option selected disabled value="">Select your level</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+
+                        </select>
+
+                        <div class="invalid-feedback">
+                            Select level
+                        </div>
 
 
-    		</div>
-
-    	</div>
-    	
-    </div>	
+                    </div>
 
 
-  </body>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="mb-3 ">
+                                <button name="btn_register" type="submit"
+                                    class="btn btn-dark rounded-pill p-2  w-100 ">&rarr; Submit</button>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php 
 
+            // else:
 
+// header("location:payment.php");
 
-// print "<pre>";
-// var_dump($_SERVER);
-// print "</pre>";
-
-
-
-
-
-
+// endif;
 
 ?>

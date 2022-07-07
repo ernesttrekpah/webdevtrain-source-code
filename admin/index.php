@@ -35,13 +35,15 @@ try{
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registered Members | Website Development Training</title>
+		<link rel="shortcut icon" href="../assets/images/favi1.png" type="image/x-icon">
 
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="../assets/css/animate/animate.min.css"> 
+
     <!-- Data Tables CSS -->
     <link rel="stylesheet" type="text/css" href="../assets/data-tables/datatables.min.css">
 
-
-   
 
     <!-- Bootstrap Script -->
     <script defer type="text/javascript" src="../assets/js/bootstrap/bootstrap.min.js"></script>
@@ -58,20 +60,20 @@ try{
 
 
   </head>
-  <body>
+	<body oncontextmenu="return false">
 
-    <div class="container-fluid">
-    	<div class="container-fluid">
+  
+    	<div class="container-fluid p-0">
 
     		<div class="row g-0">
 
-    			<div class="col-md-4">
+    			<div class="col-md-4 vh-100">
 
-    				<img src="../assets/images/p1.jpg" class="img-fluid ">
+    				<img src="../assets/images/p1.jpg" class="img-fluid  admin-left-content">
     				
     			</div>
 
-    			<div class="col-md-4 my-3  offset-md-2">
+    			<div class="col-md-8 my-3 px-5">
 
 	    				<h2>Registered Members</h2>
 
@@ -90,6 +92,7 @@ try{
 						            <th>Phone</th>
 						            <th>Email</th>
 						            <th>Department</th>
+						            <th>Level</th>
 						            <th>Date Created</th>
 						            <th>Action</th>
 						        </tr>
@@ -104,6 +107,7 @@ try{
 						            <td><?=$row['phone']?></td>
 						            <td><?=$row['email']?></td>
 						            <td><?=$row['department']?></td>
+						            <td><?=$row['level']?></td>
 						            <td><?=$row['date_created']?></td>
 						            <td><a href="<?=$row['id']?>"></a></td>
 						           
@@ -121,7 +125,7 @@ try{
 
 						else:
 
-							print "<h2 class='text-info'>No registered members yet!</h2>";
+							print "<h2 class='text-warning animate__animated animate__slideInUp'>No registered members yet!</h2>";
 
 						endif;
 
@@ -134,7 +138,7 @@ try{
 
     	</div>
     	
-    </div>	
+
 
 
 

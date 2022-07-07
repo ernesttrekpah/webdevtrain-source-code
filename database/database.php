@@ -14,12 +14,11 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 }else
 
 {
-	define('DBHOST', $_SERVER['SERVER_NAME']);
+    define('DBHOST', 'localhost');
+    define('DBUSER', 'id19221357_root');
+    define('DBNAME', '');
+    define('DBPASS', 'S#?~#r9!Wjcwww>M');
+    define('DBCHARSET', 'utf8');
 }
-
-
-
-
-
 
 ?>

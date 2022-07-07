@@ -1,31 +1,12 @@
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registration | Website Development Training</title>
-
-    <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/app.css">
-
-    <!-- Bootstrap Script -->
-    <script defer type="text/javascript" src="./assets/js/bootstrap/bootstrap.min.js"></script>
-    <!-- Custom Js -->
-    <script defer type="text/javascript" src="./assets/js/app.js"></script>
-
-
-  </head>
-  <body>
-
-
-
-<?php 
-//include database configuration
-include_once('./database/database.php');
+<?php
 
 session_start();
+
+//ini_set("display_errors",0 );
+
+
+//include database configuration
+include_once('./database/database.php');
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -35,28 +16,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$phone = sanitizeData($_POST['phone']);
 		$email = sanitizeData($_POST['email']);
 		$department = sanitizeData($_POST['department']);
+		$level = sanitizeData($_POST['level']);
 	
-
-
-		// Check emptiness
-		if(empty($fullName)){
-			$_SESSION['full-name-empty']="Please enter fullname";
-				header("location:././");
-			
-		}if(empty($phone)){
-			$_SESSION['phone-empty']="Please enter your phone number";
-				header("location:././");
-
-		}if(empty($email)){
-			$_SESSION['email-empty']="Please enter your email";
-				header("location:././");
-
-		}if(empty($department)){
-			$_SESSION['department-empty']="Please enter department";
-				header("location:././");
-
-		}else
-		{
 
 
 		//Check if records already exist
@@ -65,6 +26,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			$dsn ="mysql:host=".DBHOST."; dbname=".DBNAME;
 				
 				$conn = new PDO($dsn, 'root', '');
+				// print 'connected';
+			
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 				$query =$conn->prepare("SELECT full_name, phone from users_tbl where(full_name=:n AND phone=:p)");
@@ -85,19 +48,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 					$_SESSION['already-registered-error'] = "Sorry, you have already registered!";
 
-					header("location:././");
-					die();
-
+					die(header("location:././"));
+					
 
 				}else
 				{
 					//Insert
-					$query =$conn->prepare("INSERT INTO users_tbl(full_name, phone, email, department) values(:n,:p,:e,:d)");
+					$query =$conn->prepare("INSERT INTO users_tbl(full_name, phone, email, department, level) values(:n,:p,:e,:d,:l)");
 
-					$query->bindParam('n', $fullName);
-					$query->bindParam('p', $phone);
-					$query->bindParam('e', $email);
-					$query->bindParam('d', $department);
+					$query->bindParam(':n', $fullName);
+					$query->bindParam(':p', $phone);
+					$query->bindParam(':e', $email);
+					$query->bindParam(':d', $department);
+					$query->bindParam(':l', $level);
 			
 
 					//
@@ -106,21 +69,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					if($status){
 						$_SESSION['register-success'] ="Registration successful";
 
-						header("location:././");
-						die();
-
+						header("location:././payment.php");
+				
 					}
 				}
 
-				}catch(PDOException $e){
-			die('Error occured: '. $e->getMessage());
-		 }
+		}catch(PDOException $e){
+		die('Error occured: '. $e->getMessage());
+		session_destroy();
+	 }
 
 			}
 
 
 		}
-	}
+
 
 
 
@@ -136,7 +99,3 @@ function sanitizeData($input)
 }
 
 ?>
-
-
-  </body>
-</html>
